@@ -1,5 +1,5 @@
+<script>
+    import "../app.css";
+</script>
 
-
-<slot></slot>
-<style windi:preflights:global windi:safelist:global>
-</style>
+<slot />
