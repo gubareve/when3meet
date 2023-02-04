@@ -1,7 +1,7 @@
 <script lang="ts">
     import {pb, user} from "$lib/pb";
 
-    let username: string;
+    let name: string;
     let email: string;
     let password: string;
     let avatar: FileList;
@@ -27,7 +27,7 @@
         loading = true;
 
         let data = new FormData();
-        data.append("username", username);
+        data.append("name", name);
         data.append("email", email);
         data.append("password", password);
         data.append("passwordConfirm", password);
@@ -39,6 +39,12 @@
             await pb.collection("users").create(data)
         } catch (e) {
             error = e.data.data;
+            error = {
+                name: error.name ? error.name.message : null,
+                email: error.email ? error.email.message : null,
+                password: error.password ? error.password.message : null,
+                avatar: error.avatar ? error.avatar.message : null,
+            }
             loading = false;
             return;
         }
