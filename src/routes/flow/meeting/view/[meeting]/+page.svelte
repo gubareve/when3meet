@@ -8,4 +8,4 @@
 <h1>{data.meeting.title}</h1>
 <a href={"/flow/group/view/" + data.meeting.group}>Group</a>
 
-Scheduler??
+This is where people can select which times they are free

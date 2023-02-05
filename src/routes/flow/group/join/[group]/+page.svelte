@@ -7,7 +7,7 @@
 
     onMount(async () => {
         if (!$user) {
-            $prevPage = $page.path;
+            prevPage.set($page.route.id!);
             await goto("/register");
         }
        let group = await pb.collection("groups").getOne($page.params.group);
@@ -15,7 +15,6 @@
            group.members.push($user!.id);
            await pb.collection("groups").update($page.params.group, {
                members: group.members,
-               required: group.required,
            })
        }
 

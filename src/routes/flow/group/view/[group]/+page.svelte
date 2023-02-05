@@ -2,10 +2,11 @@
     import type { Record } from "pocketbase";
     import {pb} from "$lib/pb.ts";
     import Member from "$lib/components/Member.svelte";
-    import {Button, Dropdown, DropdownItem, Heading, Popover} from "flowbite-svelte";
+    import {Button, Dropdown, DropdownItem, Heading, Popover, Card} from "flowbite-svelte";
     import {user} from "$lib/pb.js";
     import { fade } from "svelte/transition";
     import {page} from "$app/stores";
+    import {goto} from "$app/navigation";
 
     export let data: {group: Record, meetings: Record[]};
 
@@ -15,12 +16,41 @@
 
     if (!data.group.expand.members) {
         data.group.expand.members = [];
+        data.group.members = [];
     }
     if (!data.group.required) {
         data.group.required = [];
     }
     function copyLink() {
         navigator.clipboard.writeText($page.url.protocol + "//" + $page.url.host + "/flow/group/join/" + data.group.id);
+    }
+
+    async function makeOrganizer(u: string) {
+        data.group.organizers = [...data.group.organizers, u];
+        await pb.collection("groups").update(data.group.id, {
+            organizers: data.group.organizers,
+        })
+    }
+
+    async function removeOrganizer(u: string) {
+        data.group.organizers = data.group.organizers.filter(v => v !== u)
+        await pb.collection("groups").update(data.group.id, {
+            organizers: data.group.organizers,
+        })
+    }
+
+    async function removeUser(u: string) {
+        data.group.members = data.group.members.filter(v => v != u);
+        data.group.expand.members = data.group.expand.members.filter(v => v.id != u);
+        let update = {
+            members: data.group.members,
+            organizers: undefined,
+        }
+        if (data.group.organizers.includes(u)) {
+            data.group.organizers = data.group.organizers.filter(v => v != u);
+            update.organizers = data.group.organizers;
+        }
+        await pb.collection("groups").update(data.group.id, update)
     }
 </script>
 
@@ -43,6 +73,7 @@
     </div>
     <p class="py-2">{data.group.description}</p>
 
+    <Heading tag="h2" class="py-2 !text-3xl !md:text-4xl">Meetings</Heading>
     {#if data.meetings.length === 0}
         <div class="flex flex-col items-center justify-center py-10">
             <p class="py-5 text-4xl md:text-3xl font-medium">No meetings yet</p>
@@ -54,28 +85,42 @@
             </div>
         </div>
     {:else}
-        {#each data.meetings as meeting}
-            <a href={"/flow/meeting/view/" + meeting.id}>
+        <div class="grid grid-cols-auto-fill gap-2 max-w-full">
+        {#each data.meetings as meeting (meeting.id)}
+
+            <Card padding="none" class="p-4" href={"/flow/meeting/view/" + meeting.id}>
+                <div class="p-4">
+                    <div class="text-xl text-black text-block">
                 {meeting.title}
-            </a>
-            <br>
+                        </div>
+                    <div>
+                        {new Date(Date.parse(meeting.created)).toLocaleDateString(
+                            'en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})}
+                    </div>
+                </div>
+            </Card>
         {/each}
+        </div>
     {/if}
 
     <Heading tag="h2" class="py-2 !text-3xl !md:text-4xl">Members</Heading>
     <div class="grid grid-cols-auto-fill gap-2 max-w-full">
-        {#each data.group.expand.members as m}
+        {#each data.group.expand.members as m (m.id)}
             <Member member={m} organizer={data.group.organizers.includes(m.id)} author={data.group.author === m.id}>
                 <div slot="right">
-                    {#if m.id !== $user?.id}
+                    {#if m.id !== $user?.id && $user?.id === data.group.author}
                         <Button color="alternative" pill={true} size="xs" class="!p-2 !border-none">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 text-gray-600">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
                             </svg>
                         </Button>
                         <Dropdown placement="right">
-                            <DropdownItem>Make Organizer</DropdownItem>
-                            <DropdownItem slot="footer">Remove</DropdownItem>
+                            {#if data.group.organizers.includes(m.id)}
+                                <DropdownItem on:click={() => {removeOrganizer(m.id)}}>Remove Organizer</DropdownItem>
+                            {:else}
+                                <DropdownItem on:click={() => {makeOrganizer(m.id)}}>Make Organizer</DropdownItem>
+                            {/if}
+                            <DropdownItem slot="footer" on:click={() => {removeUser(m.id)}}>Remove</DropdownItem>
                         </Dropdown>
                     {/if}
                 </div>

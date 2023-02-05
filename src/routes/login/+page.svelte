@@ -23,6 +23,8 @@
             await pb.collection("users").authWithPassword(email, password);
         } catch (e) {
             error = e.message;
+            loading = false;
+            return;
         }
         await goto($prevPage == "" ? "/dash" : $prevPage);
     }

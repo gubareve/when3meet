@@ -3,10 +3,12 @@
     import {Avatar, Button, Card, Heading, P} from "flowbite-svelte";
     import {onMount} from "svelte";
     import MemberAvatar from "$lib/components/MemberAvatar.svelte";
+    import type {Record} from "pocketbase";
+    import {goto} from "$app/navigation";
+
+    export let data: {groups: Record[]};
 
     let errorMessage = null;
-
-    let groups = [];
     let avatarFile;
     let avatarInput;
 
@@ -15,11 +17,6 @@
     }
 
     onMount(async () => {
-        groups = (await pb.collection("groups").getList(1, 30, {
-            filter: `members.id ?= "${$user.id}"`,
-            sort: "-created",
-        })).items;
-
         // Avatar changed
         avatarInput.onchange = async (e) => {
             const formData = new FormData();
@@ -28,8 +25,6 @@
             await pb.collection("users").update($user.id, formData)
         };
     })
-
-    $: initials = $user ? $user.name.split(" ").map((n) => n[0]).join("") : "";
 </script>
 <header aria-label="Page Header">
     <div class="mx-auto max-w-screen-xl px-4 py-8 sm:py-12 sm:px-6 lg:px-8">
@@ -38,7 +33,7 @@
                 <form>
                     <input type="file" accept="image/png" bind:this={avatarInput} hidden />
                     <div class="cursor-pointer hover:brightness-95" on:click={getAvatar}>
-                        <MemberAvatar member={$user} size="lg" thumbSize="256x256" />
+                        <MemberAvatar member={$user} size="lg" thumbSize="256x256" class="text-2xl" />
                     </div>
                 </form>
             </div>
@@ -53,18 +48,18 @@
             </div>
 
             <div class="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center">
-                <Button>
-                    Create new meeting
+                <Button on:click={() => {goto("/flow/group/new")}}>
+                    Create group
                 </Button>
             </div>
         </div>
     </div>
 </header>
 <div class="mx-auto max-w-screen-xl px-4 py-8 sm:py-12 sm:px-6 lg:px-8">
-    <h1 class="text-2xl font-bold">Your Groups</h1>
-    <div class="grid grid-cols-2 gap-4">
-        {#each groups as group}
-            <Card href="/flow/group/view/{group.id}">
+    <h1 class="text-2xl font-bold py-4">Your Groups</h1>
+    <div class="grid grid-cols-auto-fill-lg gap-4 max-w-full">
+        {#each data.groups as group}
+            <Card href="/flow/group/view/{group.id}" class="block w-full w-[30rem]">
                 <Heading tag="h3" class="text-lg font-bold">
                     {group.title}
                 </Heading>

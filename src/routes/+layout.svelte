@@ -7,9 +7,9 @@
     import {prevPage} from "$lib/login";
     import Navbar from "$lib/components/Navbar.svelte";
 
-    if (!$user && $page.route.id !== "/" && $page.route.id !== "/login" && $page.route.id !== "/register" && browser) {
+    if (!$user && $page.route.id && ( !$page.route.id.startsWith("/flow") || $page.route.id !== "/dash" ) && browser) {
         prevPage.set($page.route.id);
-        goto("/register");
+        goto("/login");
     }
 </script>
 
