@@ -4,6 +4,7 @@
     import {page} from "$app/stores";
     import {goto} from "$app/navigation";
     import {prevPage} from "$lib/login";
+    import {Spinner} from "flowbite-svelte";
 
     onMount(async () => {
         if (!$user) {
@@ -21,3 +22,7 @@
         await goto("/flow/group/view/" + $page.params.group);
     })
 </script>
+
+<div class="absolute right-1/2 bottom-1/2 transform translate-x-1/2 translate-y-1/2">
+    <Spinner></Spinner>
+</div>

@@ -13,6 +13,10 @@
     }
 </script>
 
+<svelte:head>
+    <script src="https://unpkg.com/flowbite@1.5.1/dist/datepicker.js"></script>
+</svelte:head>
+
 <Navbar />
 
 <slot />

@@ -10,6 +10,8 @@
     let description = "";
     let group = "";
 
+    let dates = [];
+
     let error = {};
     let loading = false;
 
@@ -51,22 +53,28 @@
         {/if}
 
         <div class="flex flex-row">
-            <div>
-        <Label for="$start-time-switcher" class="mb-2">Choose the earliest possible start time</Label>
-        <Select id="start-time-switcher" class="mb-6" label="Start time">
+            <div class="flex-grow">
+                <Label for="$start-time-switcher" class="mb-2">Start time</Label>
+                <Select id="start-time-switcher" class="mb-6" label="Start time">
 
-        </Select>
+                </Select>
+                    </div>
+            <div class="ml-4 flex-grow">
+                    <Label for="$end-time-switcher" class="mb-2">End time</Label>
+                    <Select id="end-time-switcher" class="mb-6" label="End time">
+
+                    </Select>
             </div>
-<div class="ml-auto">
-        <Label for="$end-time-switcher" class="mb-2">Choose the latest possible end time</Label>
-        <Select id="end-time-switcher" class="mb-6" label="End time">
-
-        </Select>
-</div>
         </div>
 
         <Label for="$possible-days-switcher" class="mb-2">Possible days that this meeting can be on</Label>
-        
+        <div>
+            {#each dates as date}
+                <div>
+                    <Datepicker bind:value={date} />
+                </div>
+            {/each}
+        </div>
 
 
         <div className="grid grid-cols-7 mt-2 rounded-md border overflow-hidden flex-1">
