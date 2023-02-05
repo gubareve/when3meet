@@ -1,5 +1,9 @@
 <script lang="ts">
     import {pb, user} from "$lib/pb";
+    import {goto} from "$app/navigation";
+    import {prevPage} from "$lib/login";
+    import {A, Button, Checkbox, Helper, Input, Label, Spinner} from "flowbite-svelte";
+    import {onMount} from "svelte";
 
     let name: string;
     let email: string;
@@ -10,19 +14,6 @@
     let loading = false;
 
     let error = {};
-
-    async function login() {
-        loading = true;
-        try {
-            await pb.collection("users").authWithPassword(username, password);
-        } catch (e) {
-            error = e.data.data;
-            if (Object.keys(error).length == 0) {
-                error["username"] = { message: e.message };
-            }
-        }
-        loading = false;
-    }
 
     async function register() {
         if (registerForm.checkValidity() === false) {
@@ -53,8 +44,9 @@
             return;
         }
 
-        await login();
-        loading = false;
+        await pb.collection("users").authWithPassword(email, password);
+
+        await goto($prevPage == "" ? "/dash" : $prevPage);
     }
 
     onMount(() => {
@@ -67,50 +59,50 @@
         pb.authStore.clear();
     }
 </script>
-
-{#if loading}
-        Loading spinner or disable button idk
-    <br/>
-{/if}
-
-{#if $user}
-    You are logged in.
-    <button type="button" on:click={logout}>Log Out</button>
-{:else}
-
-If you are logging in:
-<form>
-    <input type="text" bind:value={username} placeholder="username or email"/>
-    {#if error.username}
-        ERROR
-        {error.username.message}
-    {/if}
-    <input type="password" bind:value={password} placeholder="password"/>
-    <button type="submit" on:click|preventDefault={login}>Login</button>
-</form>
-
-If you are registering:
-<form>
-    <input type="text" bind:value={username} placeholder="username"/>
-    {#if error.username}
-        ERROR
-        {error.username.message}
-    {/if}
-    <input type="email" bind:value={email} placeholder="email"/>
-    {#if error.email}
-        ERROR
-        {error.email.message}
-    {/if}
-    <input type="password" bind:value={password} placeholder="password"/>
-    {#if error.password}
-        ERROR
-        {error.password.message}
-    {/if}
-    <input type="file" bind:files={avatar} placeholder="file"/>
-    {#if error.avatar}
-        ERROR
-        {error.avatar.message}
-    {/if}
-    <button type="submit" on:click|preventDefault={register}>Register</button>
-</form>
-{/if}
+<section class="relative bg-gray-50 dark:bg-gray-900">
+    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0 z-10">
+        <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+            <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                    Create an account
+                </h1>
+                <form class="space-y-4 md:space-y-6" action="#" bind:this={registerForm}>
+                    <div>
+                        <Label for="register-name">Name</Label>
+                        <Input bind:value={name} label="Username" id="register-name" placeholder="John Doe"/>
+                        {#if error.name}
+                            <Helper lass="mt-2" color="red">{error.name}</Helper>
+                        {/if}
+                    </div>
+                    <div>
+                        <Label for="register-email">Email</Label>
+                        <Input type="email" bind:value={email} label="Email" id="register-email" placeholder="john.doe@example.com" error={error.email}/>
+                        {#if error.email}
+                            <Helper lass="mt-2" color="red">{error.email}</Helper>
+                        {/if}
+                    </div>
+                    <div>
+                        <Label for="register-email">Password</Label>
+                        <Input type="password" bind:value={password} label="Password" id="register-email" placeholder = "Password" error={error.password}/>
+                        {#if error.password}
+                            <Helper lass="mt-2" color="red">{error.password}</Helper>
+                        {/if}
+                    </div>
+                    <Checkbox class="mb-6 space-x-1" required>I agree with the <A href="/">terms and conditions</A>.</Checkbox>
+                    <Button type="submit" on:click={register} disabled="{loading}">{#if loading}<Spinner class="mr-3" size="4" color="white" />{/if}Submit</Button>
+                    <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                        Already have an account? <a href="/login" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Login here</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+        <div class="hidden overflow-hidden md:block absolute w-full h-full blur-3xl isolate z-0 pointer-events-none">
+            <!-- Circle 1 blue gradient -->
+            <div class="absolute top-3 left-5 aspect-square h-3/5 bg-gradient-to-br from-blue-400 to-blue-500 dark:from-blue-500 dark:to-blue-600 rounded-full opacity-10 mix-blend-multiply"></div>
+            <!-- Circle 2 pink gradient -->
+            <div class="absolute top-1/2 right-3 aspect-square w-3/5 bg-gradient-to-br from-pink-400 to-pink-500 dark:from-pink-500 dark:to-pink-600 rounded-full opacity-10 mix-blend-multiply"></div>
+            <!-- Circle 3 purple gradient -->
+            <div class="absolute bottom-3 left-1/2 aspect-square w-2/5 bg-gradient-to-br from-purple-400 to-purple-500 dark:from-purple-500 dark:to-purple-600 rounded-full opacity-10 mix-blend-multiply"></div>
+        </div>
+    </div>
+</section>

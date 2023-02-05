@@ -1,26 +1,20 @@
 <script>
-    import {Avatar, Card} from "flowbite-svelte";
+    import {Card} from "flowbite-svelte";
+    import MemberAvatar from "$lib/components/MemberAvatar.svelte";
 
-    export let name;
-    export let avatar;
+    export let member;
     export let organizer = false;
-
-    $: initials = name.split(" ").map((n) => n[0]).join("");
+    export let author = false;
 </script>
 
 <Card padding="none" class="p-4">
     <div class="flex items-center space-x-4 p-3">
-        {#if avatar}
-            <Avatar src={avatar} class={organizer ? "ring-red-500" : ""}/>
-        {:else}
-            <Avatar class={organizer ? "ring-red-500" : ""}>
-                {initials}
-            </Avatar>
-        {/if}
-        <div class="space-y-0.5 font-medium dark:text-white">
-            <div>{name}</div>
-            <div class="text-sm text-gray-500 dark:text-gray-400">{organizer ? "Organizer" : "Member"}</div>
+        <MemberAvatar member={member} border={author || organizer} class={author ? "ring-red-500 dark:ring-red-300 ring-opacity-60" : organizer ? "ring-orange-500 dark:ring-orange-300 ring-opacity-50" : ""} />
+        <div class="space-y-0.5 font-medium dark:text-white flex-grow">
+            <div class="text-gray-800">{member.name || ""}</div>
+            <div class="text-sm text-gray-500 dark:text-gray-400">{author ? "Author" : organizer ? "Organizer" : "Member"}</div>
         </div>
+        <slot name="right" />
     </div>
 </Card>
 

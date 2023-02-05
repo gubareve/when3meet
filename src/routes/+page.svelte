@@ -1,5 +1,6 @@
 <script>
-    import { Alert } from 'flowbite-svelte';
+    import Hero from "$lib/components/Hero.svelte";
+    import Footer from "$lib/components/Footer.svelte";
 </script>
 
 <Hero />

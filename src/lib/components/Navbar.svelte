@@ -1,6 +1,7 @@
 <script>
-    import {Navbar, NavBrand, NavLi, NavUl, NavHamburger, Button} from 'flowbite-svelte'
+    import {Navbar, NavBrand, NavLi, NavUl, NavHamburger, Button, Dropdown, DropdownItem} from 'flowbite-svelte'
     import {user} from '$lib/pb'
+    import MemberAvatar from "$lib/components/MemberAvatar.svelte";
 </script>
 
 <Navbar let:hidden let:toggle>
@@ -18,7 +19,13 @@
         {#if $user == null}
             <Button href="/register" size="sm">Get started</Button>
         {:else}
-            <Button href="/dash" size="sm">Dashboard</Button>
+            <div>
+                <MemberAvatar member={$user} size="md" class="inline-block cursor-pointer" />
+            </div>
+            <Dropdown>
+                <DropdownItem href="/dash">Dashboard</DropdownItem>
+                <DropdownItem slot="footer" href="/logout">Logout</DropdownItem>
+            </Dropdown>
         {/if}
         <NavHamburger on:click={toggle}/>
     </div>
