@@ -18,7 +18,7 @@
         {#if $user == null}
             <Button href="/register" size="sm">Get started</Button>
         {:else}
-            <Button href="/dashboard" size="sm">Dashboard</Button>
+            <Button href="/dash" size="sm">Dashboard</Button>
         {/if}
         <NavHamburger on:click={toggle}/>
     </div>

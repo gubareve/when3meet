@@ -5,6 +5,7 @@
     let email: string;
     let password: string;
     let avatar: FileList;
+    let registerForm;
 
     let loading = false;
 
@@ -24,6 +25,9 @@
     }
 
     async function register() {
+        if (registerForm.checkValidity() === false) {
+            return
+        }
         loading = true;
 
         let data = new FormData();
@@ -52,6 +56,12 @@
         await login();
         loading = false;
     }
+
+    onMount(() => {
+        if ($user) {
+            goto("/dash?error=alreadyLoggedIn");
+        }
+    })
 
     function logout() {
         pb.authStore.clear();
