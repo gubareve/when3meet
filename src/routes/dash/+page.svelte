@@ -4,7 +4,7 @@
     import {onMount} from "svelte";
     import MemberAvatar from "$lib/components/MemberAvatar.svelte";
     import type {Record} from "pocketbase";
-    import {goto} from "$app/navigation";
+    import {goto, invalidateAll} from "$app/navigation";
 
     export let data: {groups: Record[]};
 
@@ -23,6 +23,7 @@
             formData.append("avatar", e.target.files[0]);
 
             await pb.collection("users").update(data.user.id, formData)
+            await invalidateAll()
         };
     })
 </script>
