@@ -17,7 +17,7 @@
 <Navbar let:hidden let:toggle>
 	<NavBrand href="/">
 		<img
-			src="https://flowbite.com/docs/images/logo.svg"
+			src="/images/logo.svg"
 			class="mr-3 h-6 sm:h-9"
 			alt="Flowbite Logo"
 		/>
@@ -27,7 +27,7 @@
 	</NavBrand>
 	<div class="flex md:order-2">
 		{#if user == null}
-			<Button href="/login" size="sm">Login</Button>
+			<Button href="/login" color="primary" size="sm">Login</Button>
 		{:else}
 			<div>
 				<MemberAvatar member={user} size="md" class="inline-block cursor-pointer" />

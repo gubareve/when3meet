@@ -74,7 +74,7 @@
 		</div>
 		<div class="flex items-center justify-center">
 			{#if data.group.author === data.user.id || data.group.organizers.includes(data.user.id)}
-				<Button
+				<Button color="primary"
 					class="mr-2"
 					on:click={() => {
 						goto('/flow/meeting/new/' + data.group.id);
@@ -93,7 +93,7 @@
 					Create meeting
 				</Button>
 			{/if}
-			<Button id="copy-btn" on:click={copyLink}>
+			<Button id="copy-btn" on:click={copyLink} color="primary">
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					fill="none"
@@ -400,7 +400,7 @@
 			</div>
 			{#if data.group.author === data.user.id || data.group.organizers.includes(data.user.id)}
 				<div>
-					<Button
+					<Button color="primary"
 						on:click={() => {
 							goto('/flow/meeting/new/' + data.group.id);
 						}}>Create Meeting</Button

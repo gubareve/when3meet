@@ -16,7 +16,7 @@
 				Our AI scheduling platform finds the best time for your meetings, doing the heavy lifting
 				for you.
 			</p>
-			<Button href="/register">
+			<Button href="/register" color="primary">
 				Get started
 				<svg
 					class="w-5 h-5 ml-2 -mr-1"

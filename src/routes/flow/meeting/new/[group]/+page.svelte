@@ -134,7 +134,7 @@
 			<Input id="possible-days-switcher" class="mb-6 w-full" type="text" />
 		</div>
 
-		<Button on:click={create} class="my-5 float-right" {loading} disabled={loading}>Create</Button>
+		<Button color="primary" on:click={create} class="my-5 float-right" {loading} disabled={loading}>Create</Button>
 	</form>
 </div>
 

@@ -61,7 +61,7 @@
 					>{data.group.title}</a
 				>
 			</h4>
-			<Button class="mt-8" href={'/flow/meeting/edit/userschedule/' + data.meeting.id}
+			<Button class="mt-8"color="primary"  href={'/flow/meeting/edit/userschedule/' + data.meeting.id}
 				>Change your availability</Button
 			>
 		</div>

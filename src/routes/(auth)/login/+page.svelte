@@ -81,7 +81,7 @@
 							placeholder="Password"
 						/>
 					</div>
-					<Button type="submit" on:click={login}
+					<Button type="submit" on:click={login} color="primary"
 						>{#if loading}<Spinner class="mr-3" size="4" color="white" />{/if}Login</Button
 					>
 					<p class="text-sm font-light text-gray-500 dark:text-gray-400">

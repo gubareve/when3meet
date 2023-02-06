@@ -117,7 +117,7 @@
 					<Checkbox class="mb-6 space-x-1" required
 						>I agree with the <A href="/static">terms and conditions</A>.</Checkbox
 					>
-					<Button type="submit" on:click={register} disabled={loading}
+					<Button type="submit" on:click={register} disabled={loading} color="primary"
 						>{#if loading}<Spinner class="mr-3" size="4" color="white" />{/if}Submit</Button
 					>
 					<p class="text-sm font-light text-gray-500 dark:text-gray-400">

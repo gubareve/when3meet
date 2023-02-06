@@ -65,5 +65,5 @@
 		bind:schedule
 		initialSchedule={data.initialSchedule}
 	/>
-	<Button class="my-4" on:click={save} disabled={loading}>Save</Button>
+	<Button class="my-4" on:click={save} disabled={loading} color="primary">Save</Button>
 </div>

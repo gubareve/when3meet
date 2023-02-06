@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+const colors = require("tailwindcss/colors.js");
+
 module.exports = {
 	mode: 'jit',
 	content: [
@@ -11,6 +13,9 @@ module.exports = {
 			gridTemplateColumns: {
 				'auto-fill': 'repeat(auto-fill, 20rem)',
 				'auto-fill-lg': 'repeat(auto-fill, 24rem)'
+			},
+			colors: {
+				primary: colors.indigo,
 			}
 		}
 	},

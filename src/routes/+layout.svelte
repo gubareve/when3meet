@@ -13,7 +13,7 @@
 	if (
 		!data.user &&
 		$page.route.id &&
-		(!$page.route.id.startsWith('/flow') || $page.route.id !== '/dash') &&
+		($page.route.id.startsWith('/flow') || $page.route.id !== '/dash') &&
 		browser
 	) {
 		prevPage.set($page.url.pathname);
