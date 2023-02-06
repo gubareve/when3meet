@@ -10,7 +10,7 @@
 
     export let data;
 
-    if (!data.user && $page.route.id && ( !$page.route.id.startsWith("/flow") || $page.route.id !== "/dash" ) && browser) {
+    if (!data.user && $page.route.id && ( $page.route.id.startsWith("/flow") || $page.route.id === "/dash" ) && browser) {
         prevPage.set($page.route.id);
         goto("/login");
     }
