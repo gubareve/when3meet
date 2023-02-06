@@ -40,7 +40,6 @@
 	}
 
 	function dragStart(e) {
-		console.log('starting drag');
 		if (interactive) {
 			let day = e.target.dataset.day;
 			let st = e.target.dataset.st;

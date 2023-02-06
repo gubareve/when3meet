@@ -50,7 +50,6 @@
 
 			await goto('/flow/meeting/view/' + res.id);
 		} catch (e) {
-			console.log(e);
 			error = e.data.data;
 		}
 		loading = false;

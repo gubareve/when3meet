@@ -1,31 +1,18 @@
 <script lang="ts">
-	import TimeView from '$lib/components/TimeView.svelte';
 	import dayjs from 'dayjs';
 	import TimeViewInteractive from '$lib/components/TimeViewInteractive.svelte';
 	import { Button, Heading } from 'flowbite-svelte';
 	import { pb } from '$lib/pb';
 	import { goto } from '$app/navigation';
 	import type { PageData } from './$types';
+	import type { Record } from 'pocketbase';
 
 	export let data: PageData;
 
-	function dateToString(d) {
+	function dateToString(d: Record) {
 		return dayjs(d.day).format('M/D/YYYY');
 	}
-	let schedule = [];
-
-	// Make schedule
-	for (let day of data.days) {
-		let s = data.schedules.find((v) => v.day == day.id);
-		let v = new Array(24 * 4).fill(0);
-		if (s) {
-			for (let ind of s.available) {
-				v[ind] = 1;
-			}
-		}
-		v.slice(data.meeting.start * 4, data.meeting.end * 4);
-		schedule.push(v);
-	}
+	let schedule: number[][] = [];
 
 	let loading = false;
 	async function save() {
@@ -40,7 +27,7 @@
 			}
 
 			// Check if schedule exists
-			let s = data.schedules.find((v) => v.day == data.days[i].id);
+			let s = data.schedules.find((v: Record) => v.day == data.days[i].id);
 			if (s) {
 				// Update
 				promises.push(
@@ -76,7 +63,7 @@
 		endTime={data.meeting.end}
 		dayNames={data.days.map(dateToString)}
 		bind:schedule
-		initialSchedule={schedule}
+		initialSchedule={data.initialSchedule}
 	/>
 	<Button class="my-4" on:click={save} disabled={loading}>Save</Button>
 </div>
