@@ -1,6 +1,12 @@
 # When3meet
 When3meet simplifies meeting scheduling by showing options that fit all schedules. Perfect for busy professionals & remote teams. Get organized with When3meet.
 
+## How to run it
+1. Run `npm run dev` in the root directory to start the frontend
+2. Run `cd pb`
+3. Run `./pocketbase` to start the database
+4. Go to https://localhost:5173 to use!
+
 ## Inspiration
 When3meet was inspired by the frustration of trying to coordinate schedules with multiple people to schedule a meeting. We wanted to create an app that would make this process simpler, faster, and more efficient.
 
