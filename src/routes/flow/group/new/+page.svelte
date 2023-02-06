@@ -23,7 +23,7 @@
 				members: [data.user!.id],
 				organizers: [data.user!.id]
 			});
-			goto('/flow/group/view/' + res.id);
+			await goto('/flow/group/view/' + res.id);
 		} catch (e) {
 			error = e.data.data;
 		}
@@ -61,7 +61,7 @@
 			class="block mb-6 p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 		/>
 		{#if error.description}
-			<Helper lass="mb-2" color="red">{error.description.message}</Helper>
+			<Helper class="mb-2" color="red">{error.description.message}</Helper>
 		{/if}
 		<Button color="primary" on:click={create} disabled={loading}>Create</Button>
 	</form>

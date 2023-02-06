@@ -33,7 +33,7 @@
 </svelte:head>
 
 <header aria-label="Page Header">
-	<div class="mx-auto max-w-screen-xl px-4 py-8 sm:py-12 sm:px-6 lg:px-8">
+	<div class="mx-auto max-w-screen-xl px-4 px-8 pb-4 sm:py-12 sm:py-6 sm:px-6 lg:px-8">
 		<div class="sm:flex sm:items-center sm:justify-between">
 			<div class="flex items-center justify-center mr-4">
 				<form>
@@ -57,31 +57,32 @@
 					View your upcoming meetings and manage your groups
 				</p>
 			</div>
-
-			<div class="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center">
-				<Button
-					color="primary"
-					on:click={() => {
-						goto('/flow/group/new');
-					}}
-				>
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						fill="none"
-						viewBox="0 0 24 24"
-						stroke-width="1.5"
-						stroke="currentColor"
-						class="w-6 h-6"
+			{#if data.groups.length > 0}
+				<div class="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center">
+					<Button
+						color="primary"
+						on:click={() => {
+							goto('/flow/group/new');
+						}}
 					>
-						<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-					</svg>
-					Create group
-				</Button>
-			</div>
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke-width="1.5"
+							stroke="currentColor"
+							class="w-6 h-6"
+						>
+							<path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+						</svg>
+						Create group
+					</Button>
+				</div>
+			{/if}
 		</div>
 	</div>
 </header>
-<div class="mx-auto max-w-screen-xl px-4 py-8 sm:py-12 sm:px-6 lg:px-8 !pt-3">
+<div class="mx-auto max-w-screen-xl px-4 pt-3 pb-8 sm:pb-12 sm:pt-4 sm:px-6 lg:px-8">
 	{#if data.groups.length > 0}
 		<h1 class="text-2xl font-bold py-4">Your Groups</h1>
 		<div class="grid grid-cols-auto-fill-lg gap-4 max-w-full">

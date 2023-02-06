@@ -115,7 +115,7 @@
 						{/if}
 					</div>
 					<Checkbox class="mb-6 space-x-1" required
-						>I agree with the <A href="/static">terms and conditions</A>.</Checkbox
+						>I agree with the <A href="/terms">terms and conditions</A>.</Checkbox
 					>
 					<Button type="submit" on:click={register} disabled={loading} color="primary"
 						>{#if loading}<Spinner class="mr-3" size="4" color="white" />{/if}Submit</Button
