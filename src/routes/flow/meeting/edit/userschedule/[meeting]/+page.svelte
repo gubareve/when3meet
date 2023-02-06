@@ -12,7 +12,7 @@
 	function dateToString(d: Record) {
 		return dayjs(d.day).format('M/D/YYYY');
 	}
-	let schedule: number[][] = [];
+	let schedule: number[][] = data.initialSchedule;
 
 	let loading = false;
 	async function save() {
