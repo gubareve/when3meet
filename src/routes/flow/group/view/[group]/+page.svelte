@@ -6,7 +6,7 @@
     import {user} from "$lib/pb";
     import { fade } from "svelte/transition";
     import {page} from "$app/stores";
-    import {goto} from "$app/navigation";
+    import {goto, invalidateAll} from "$app/navigation";
 
     export let data;
 
@@ -30,6 +30,7 @@
         await pb.collection("groups").update(data.group.id, {
             organizers: data.group.organizers,
         })
+        await invalidateAll()
     }
 
     async function removeOrganizer(u: string) {
@@ -37,6 +38,7 @@
         await pb.collection("groups").update(data.group.id, {
             organizers: data.group.organizers,
         })
+        await invalidateAll()
     }
 
     async function removeUser(u: string) {
@@ -51,6 +53,7 @@
             update.organizers = data.group.organizers;
         }
         await pb.collection("groups").update(data.group.id, update)
+        await invalidateAll()
     }
 </script>
 
