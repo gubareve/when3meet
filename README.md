@@ -1,38 +1,23 @@
-# create-svelte
+# When3meet
+When3meet simplifies meeting scheduling by showing options that fit all schedules. Perfect for busy professionals & remote teams. Get organized with When3meet.
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+## Inspiration
+When3meet was inspired by the frustration of trying to coordinate schedules with multiple people to schedule a meeting. We wanted to create an app that would make this process simpler, faster, and more efficient.
 
-## Creating a project
+## What it does
+When3meet is a scheduling app that helps you schedule meetings with ease. Simply invite participants, specify your preferred meeting dates and times, and the app will generate a list of meeting options that fit everyone's schedules.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## How we built it
+We built When3meet using the latest in web and mobile technologies, including Pocketbase, SvelteKit, TypeScript, and Server-side Rendering. Our goal was to create an app that was easy to use, yet powerful enough to handle even the most complex scheduling needs.
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+## Challenges we ran into
+One of the biggest challenges we faced was finding the right balance between simplicity and functionality. We wanted to create an app that was easy to use, but also offered all the features that users needed to schedule meetings with ease.
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+## Accomplishments that we're proud of
+We're proud of the fact that When3meet can scale vertically to support thousands of users. We're also proud of the eco-friendly aspect of the app, as it helps to reduce the number of emails, phone calls, and text messages needed to schedule a meeting, which is great for the environment.
 
-## Developing
+## What we learned
+Through the development of When3meet, we learned the importance of user-centered design. We also learned that it's essential to keep things simple, while still offering all the features that users need.
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+## What's next for When3meet
+In the future, we plan to continue improving When3meet by adding new features and making the app even more user-friendly, such as allowing users to delete and edit posts and meetings.
