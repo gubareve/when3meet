@@ -1,15 +1,19 @@
-migrate((db) => {
-  const dao = new Dao(db)
-  const collection = dao.findCollectionByNameOrId("nfhv4t5qutwjiuc")
+migrate(
+	(db) => {
+		const dao = new Dao(db);
+		const collection = dao.findCollectionByNameOrId('nfhv4t5qutwjiuc');
 
-  collection.updateRule = "@request.auth.id = author.id || @request.data.members.id ?= @request.auth.id"
+		collection.updateRule =
+			'@request.auth.id = author.id || @request.data.members.id ?= @request.auth.id';
 
-  return dao.saveCollection(collection)
-}, (db) => {
-  const dao = new Dao(db)
-  const collection = dao.findCollectionByNameOrId("nfhv4t5qutwjiuc")
+		return dao.saveCollection(collection);
+	},
+	(db) => {
+		const dao = new Dao(db);
+		const collection = dao.findCollectionByNameOrId('nfhv4t5qutwjiuc');
 
-  collection.updateRule = null
+		collection.updateRule = null;
 
-  return dao.saveCollection(collection)
-})
+		return dao.saveCollection(collection);
+	}
+);

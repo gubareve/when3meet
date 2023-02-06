@@ -2,9 +2,11 @@
 node_modules
 /build
 /.svelte-kit
+/.idea
 /package
 .env
 .env.*
+/pb/pb_data/**
 !.env.example
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*

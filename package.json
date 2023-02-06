@@ -7,7 +7,9 @@
 		"build": "vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+		"lint": "prettier --plugin-search-dir . --check .",
+		"format": "prettier --plugin-search-dir . --write ."
 	},
 	"devDependencies": {
 		"@popperjs/core": "^2.11.6",
@@ -18,6 +20,8 @@
 		"flowbite": "^1.6.3",
 		"flowbite-svelte": "^0.29.13",
 		"postcss": "^8.4.21",
+		"prettier": "^2.8.3",
+		"prettier-plugin-svelte": "^2.9.0",
 		"svelte": "^3.54.0",
 		"svelte-check": "^3.0.1",
 		"svelte-windicss-preprocess": "^4.2.8",
