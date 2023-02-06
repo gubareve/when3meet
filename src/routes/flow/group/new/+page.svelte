@@ -63,10 +63,6 @@
 		{#if error.description}
 			<Helper lass="mb-2" color="red">{error.description.message}</Helper>
 		{/if}
-		<Button color="primary"
-			on:click={create}
-			disabled={loading}
-			>Create</Button
-		>
+		<Button color="primary" on:click={create} disabled={loading}>Create</Button>
 	</form>
 </div>

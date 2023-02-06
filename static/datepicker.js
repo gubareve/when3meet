@@ -1,4 +1,3 @@
-
 !(function (e, t) {
 	'object' == typeof exports && 'undefined' != typeof module
 		? (module.exports = t())
@@ -11,7 +10,7 @@
 			'function' == typeof Symbol && 'symbol' == typeof Symbol.iterator
 				? function (e) {
 						return typeof e;
-					}
+				  }
 				: function (e) {
 						return e &&
 							'function' == typeof Symbol &&
@@ -19,7 +18,7 @@
 							e !== Symbol.prototype
 							? 'symbol'
 							: typeof e;
-					},
+				  },
 		t = function (e, t) {
 			if (!(e instanceof t)) throw new TypeError('Cannot call a class as a function');
 		},
@@ -160,7 +159,7 @@
 				null !== n[i][a] &&
 				void 0 === n[i][a].nodeName
 					? (n[i][a] instanceof Date && (t[a] = new Date(n[i][a].getTime())),
-						Array.isArray(n[i][a]) ? (t[a] = n[i][a].slice(0)) : (t[a] = v(t[a], n[i][a])))
+					  Array.isArray(n[i][a]) ? (t[a] = n[i][a].slice(0)) : (t[a] = v(t[a], n[i][a])))
 					: (t[a] = n[i][a]);
 		return t;
 	}
@@ -488,10 +487,10 @@
 							'input' !== this._el.tagName.toLowerCase()
 								? this._el.addEventListener('click', function () {
 										return e.toggle();
-									})
+								  })
 								: this._el.addEventListener('focus', function () {
 										return e.open();
-									}),
+								  }),
 							document.addEventListener('mousedown', function (t) {
 								e.node.contains(t.target) || e.hide();
 							}),
@@ -521,15 +520,15 @@
 							(i && this._dragStart
 								? this._onmousemove(e)
 								: ((this._deselect = !i && this.hasDate(new Date(f))),
-									(this._highlighted = [f]),
-									(this._dragStart = f),
-									r ||
+								  (this._highlighted = [f]),
+								  (this._dragStart = f),
+								  r ||
 										a('[data-day].' + u, this.wrapper).forEach(function (e) {
 											l(e, u);
 										}),
-									a('[data-day="' + f + '"]', this.wrapper).forEach(function (e) {
+								  a('[data-day="' + f + '"]', this.wrapper).forEach(function (e) {
 										h(e, u, !t._deselect), o(e, c);
-									})));
+								  })));
 					}
 				},
 				{
@@ -601,24 +600,24 @@
 									var e = n.dataset.year,
 										i = t._month.getFullYear();
 									t._month.setFullYear(parseInt(n.value) - (e - i)), t.render();
-								})
+							  })
 							: n.hasAttribute('data-month') && !n.onchange
 							? (n.onchange = function () {
 									t._month.setMonth(n.value - n.dataset.index), t.render();
-								})
+							  })
 							: n.hasAttribute('data-hour') && !n.onchange
 							? (n.onchange = function () {
 									t.setTime(n.dataset.hour, n.value),
 										(n.parentNode.firstChild.textContent = n.selectedOptions[0].textContent);
-								})
+							  })
 							: n.hasAttribute('data-minute') && !n.onchange
 							? (n.onchange = function () {
 									t.setTime(n.dataset.minute, null, n.value),
 										(n.parentNode.firstChild.textContent = n.selectedOptions[0].textContent);
-								})
+							  })
 							: n.hasAttribute('data-period') &&
-								!n.onchange &&
-								(n.onchange = function () {
+							  !n.onchange &&
+							  (n.onchange = function () {
 									var e = n.dataset.period,
 										i = 'am' === n.value ? -12 : 12;
 									a('[data-hour="' + e + '"] option', t.wrapper).forEach(function (e) {
@@ -626,7 +625,7 @@
 									}),
 										t.setTime(e, (t._time ? t._time[e][0] : 0) + i),
 										(n.parentNode.firstChild.textContent = n.selectedOptions[0].textContent);
-								});
+							  });
 					}
 				},
 				{
@@ -906,10 +905,10 @@
 							(e = f(p(e) ? e : o(e))),
 							'month' == t
 								? ((h = !i || e.getMonth() >= i.getMonth()),
-									(l = !a || e.getMonth() <= a.getMonth()))
+								  (l = !a || e.getMonth() <= a.getMonth()))
 								: 'year' == t
 								? ((h = !i || e.getFullYear() >= i.getFullYear()),
-									(l = !a || e.getFullYear() <= a.getFullYear()))
+								  (l = !a || e.getFullYear() <= a.getFullYear()))
 								: ((h = !i || e >= i), (l = !a || e <= a)),
 							h && l && (!s || !u(e, s, t)) && (!r || u(e, r, t))
 						);
@@ -1133,7 +1132,7 @@
 										!n && a >= 12
 											? i.forEach(function (e) {
 													return (e.selected = (e.value += 12) === a);
-												})
+											  })
 											: n || i.push(i.shift());
 										var l = i.filter(function (e) {
 											return e.selected;

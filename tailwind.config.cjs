@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-const colors = require("tailwindcss/colors.js");
+const colors = require('tailwindcss/colors.js');
 
 module.exports = {
 	mode: 'jit',
@@ -15,7 +15,7 @@ module.exports = {
 				'auto-fill-lg': 'repeat(auto-fill, 24rem)'
 			},
 			colors: {
-				primary: colors.indigo,
+				primary: colors.indigo
 			}
 		}
 	},

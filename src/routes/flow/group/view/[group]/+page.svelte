@@ -74,7 +74,8 @@
 		</div>
 		<div class="flex items-center justify-center">
 			{#if data.group.author === data.user.id || data.group.organizers.includes(data.user.id)}
-				<Button color="primary"
+				<Button
+					color="primary"
 					class="mr-2"
 					on:click={() => {
 						goto('/flow/meeting/new/' + data.group.id);
@@ -400,7 +401,8 @@
 			</div>
 			{#if data.group.author === data.user.id || data.group.organizers.includes(data.user.id)}
 				<div>
-					<Button color="primary"
+					<Button
+						color="primary"
 						on:click={() => {
 							goto('/flow/meeting/new/' + data.group.id);
 						}}>Create Meeting</Button

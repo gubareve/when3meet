@@ -59,7 +59,8 @@
 			</div>
 
 			<div class="mt-4 flex flex-col gap-4 sm:mt-0 sm:flex-row sm:items-center">
-				<Button color="primary"
+				<Button
+					color="primary"
 					on:click={() => {
 						goto('/flow/group/new');
 					}}
@@ -370,7 +371,8 @@
 				>
 			</div>
 			<div>
-				<Button color="primary"
+				<Button
+					color="primary"
 					on:click={() => {
 						goto('/flow/group/new/');
 					}}>Create Group</Button

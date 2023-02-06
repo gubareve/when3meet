@@ -32,6 +32,6 @@ export const load = (async ({ params, locals }) => {
 		group: serializeObj(meeting.expand.group),
 		days: serializeObj(days),
 		schedules: serializeObj(schedules),
-		initialSchedule: schedule,
+		initialSchedule: schedule
 	};
 }) satisfies PageServerLoad;
