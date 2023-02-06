@@ -36,7 +36,7 @@
         <div class="sm:flex sm:items-center sm:justify-between">
             <div class="flex items-center justify-center mr-4">
                 <form>
-                    <input type="file" accept="image/png" bind:this={avatarInput} hidden />
+                    <input type="file" accept="image/png,image/jpg,image/jpeg" bind:this={avatarInput} hidden />
                     <div class="cursor-pointer hover:brightness-95" on:click={getAvatar}>
                         <MemberAvatar member={data.user} size="lg" thumbSize="256x256" class="text-2xl" />
                     </div>
