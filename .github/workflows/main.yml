@@ -1,6 +1,6 @@
 name: Format Code
 on:
-  pull_request:
+  push:
     branches: [main]
 jobs:
   format:
