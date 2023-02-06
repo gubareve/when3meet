@@ -10,7 +10,7 @@
 
     onMount(async () => {
         if (!data.user) {
-            prevPage.set($page.route.id!);
+            prevPage.set($page.url.pathname);
             await goto("/register");
         }
        let group = await pb.collection("groups").getOne($page.params.group);
