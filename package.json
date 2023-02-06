@@ -28,6 +28,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"dayjs": "^1.11.7",
 		"pocketbase": "^0.10.1"
 	}
 }

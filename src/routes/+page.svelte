@@ -1,7 +1,9 @@
 <script>
     import Hero from "$lib/components/Hero.svelte";
-    import Footer from "$lib/components/Footer.svelte";
 </script>
 
+<svelte:head>
+    <title>When3meet</title>
+</svelte:head>
+
 <Hero />
-<Footer />

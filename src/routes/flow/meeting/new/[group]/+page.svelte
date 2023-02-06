@@ -1,19 +1,32 @@
 <script lang="ts">
+    import '$lib/datepicker.css';
+    import {getHourName} from "$lib/util";
     import {pb, user} from "$lib/pb";
     import {goto} from "$app/navigation";
     import {onMount} from "svelte";
-    import {Card, Datepicker} from 'flowbite-svelte';
+    import {Card, Input} from 'flowbite-svelte';
+    import Datepicker from "$lib/datepicker";
     import {Button, Helper, Label, Select} from "flowbite-svelte";
     import {page} from "$app/stores";
+    import dayjs from "dayjs";
 
     let title = "";
     let description = "";
     let group = "";
-
-    let dates = [];
+    let start = 1;
+    let end = 23;
 
     let error = {};
     let loading = false;
+    let dates: Date[];
+
+    let days = [];
+    for (let i = 0; i < 24; i++) {
+        days.push({
+            name: getHourName(i),
+            value: i,
+        })
+    }
 
     async function create() {
         loading = true;
@@ -22,13 +35,39 @@
                 title: title,
                 description: description,
                 group: $page.params.group,
+                start: start,
+                end: end,
             })
+            // Create days
+            await Promise.all(dates.map(date => {
+                return pb.collection("days").create({
+                    meeting: res.id,
+                    day: date,
+                })
+            }))
+
             await goto("/flow/meeting/view/" + res.id)
         } catch (e) {
+            console.log(e);
             error = e.data.data;
         }
         loading = false;
     }
+
+    function dateToString(d) {
+        return dayjs(d).format("dddd, MMMM D")
+    }
+
+    onMount(async () => {
+        let datePicker = new Datepicker('#possible-days-switcher', {
+            multiple: true,
+            serialize: dateToString,
+            separator: "; ",
+            onChange(dt: Date[]) {
+                dates = dt;
+            }
+        })
+    })
 </script>
 
 
@@ -55,43 +94,26 @@
         <div class="flex flex-row">
             <div class="flex-grow">
                 <Label for="$start-time-switcher" class="mb-2">Start time</Label>
-                <Select id="start-time-switcher" class="mb-6" label="Start time">
-
-                </Select>
-                    </div>
+                <Select id="start-time-switcher" class="mb-6" label="Start time" items={days} bind:value={start}></Select>
+            </div>
             <div class="ml-4 flex-grow">
                     <Label for="$end-time-switcher" class="mb-2">End time</Label>
-                    <Select id="end-time-switcher" class="mb-6" label="End time">
-
-                    </Select>
+                    <Select id="end-time-switcher" class="mb-6" label="End time" items={days} bind:value={end}></Select>
             </div>
         </div>
 
-        <Label for="$possible-days-switcher" class="mb-2">Possible days that this meeting can be on</Label>
-        <div>
-            {#each dates as date}
-                <div>
-                    <Datepicker bind:value={date} />
-                </div>
-            {/each}
+        <div class="my-6 block">
+            <Label for="#possible-days-switcher" class="mb-2">Allowed days</Label>
+            <Input id="possible-days-switcher" class="mb-6 w-full" type="text" />
         </div>
 
-
-        <div className="grid grid-cols-7 mt-2 rounded-md border overflow-hidden flex-1">
-            <div className="text-center" key={`weekday_1`}>
-                Mon
-            </div>
-            <div className="text-center" key={`weekday_2`}>
-                Mon
-            </div>
-            <div className="text-center" key={`weekday_3`}>
-                Mon
-            </div>
-            <div className="text-center" key={`weekday_4`}>
-                Mon
-            </div>
-        </div>
 
         <Button on:click={create} class="my-5 float-right" loading={loading} disabled={loading}>Create</Button>
     </form>
 </div>
+
+<style>
+    :global(.datepicker) {
+        width: 100%;
+    }
+</style>

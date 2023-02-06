@@ -9,14 +9,17 @@
     let error = {};
     let loading = false;
 
+    export let data;
+
     async function create() {
         loading = true;
         try {
             let res = await pb.collection("groups").create({
                 title: title,
                 description: description,
-                author: $user!.id,
-                members: [$user!.id,]
+                author: data.user!.id,
+                members: [data.user!.id],
+                organizers: [data.user!.id],
             })
             goto("/flow/group/view/" + res.id)
         } catch (e) {

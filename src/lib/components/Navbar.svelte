@@ -1,7 +1,8 @@
 <script>
     import {Navbar, NavBrand, NavLi, NavUl, NavHamburger, Button, Dropdown, DropdownItem} from 'flowbite-svelte'
-    import {user} from '$lib/pb'
     import MemberAvatar from "$lib/components/MemberAvatar.svelte";
+
+    export let user;
 </script>
 
 <Navbar let:hidden let:toggle>
@@ -16,11 +17,11 @@
     </span>
     </NavBrand>
     <div class="flex md:order-2">
-        {#if $user == null}
-            <Button href="/register" size="sm">Get started</Button>
+        {#if user == null}
+            <Button href="/login" size="sm">Login</Button>
         {:else}
             <div>
-                <MemberAvatar member={$user} size="md" class="inline-block cursor-pointer" />
+                <MemberAvatar member={user} size="md" class="inline-block cursor-pointer" />
             </div>
             <Dropdown>
                 <DropdownItem href="/dash">Dashboard</DropdownItem>
@@ -31,7 +32,7 @@
     </div>
 
     <NavUl {hidden}>
-        <NavLi href="/" active={true}>Home</NavLi>
+        <NavLi href="/">Home</NavLi>
         <NavLi href="/about">About</NavLi>
         <NavLi href="/contact">Contact</NavLi>
     </NavUl>

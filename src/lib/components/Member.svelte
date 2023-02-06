@@ -18,12 +18,3 @@
     </div>
 </Card>
 
-<style>
-    :global(.member-author) {
-        @apply ring-red-500 ring-opacity-60;
-    }
-    :global(.member-organizer) {
-        @apply ring-orange-500 ring-opacity-50;
-    }
-</style>
-

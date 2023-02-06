@@ -6,14 +6,16 @@
     import {prevPage} from "$lib/login";
     import {Spinner} from "flowbite-svelte";
 
+    export let data;
+
     onMount(async () => {
-        if (!$user) {
+        if (!data.user) {
             prevPage.set($page.route.id!);
             await goto("/register");
         }
        let group = await pb.collection("groups").getOne($page.params.group);
-       if (!group.members.includes($user!.id)) {
-           group.members.push($user!.id);
+       if (!group.members.includes(data.user!.id)) {
+           group.members.push(data.user!.id);
            await pb.collection("groups").update($page.params.group, {
                members: group.members,
            })

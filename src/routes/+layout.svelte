@@ -6,17 +6,22 @@
     import {browser} from "$app/environment";
     import {prevPage} from "$lib/login";
     import Navbar from "$lib/components/Navbar.svelte";
+    import Footer from "$lib/components/Footer.svelte";
 
-    if (!$user && $page.route.id && ( !$page.route.id.startsWith("/flow") || $page.route.id !== "/dash" ) && browser) {
+    export let data;
+
+    if (!data.user && $page.route.id && ( !$page.route.id.startsWith("/flow") || $page.route.id !== "/dash" ) && browser) {
         prevPage.set($page.route.id);
         goto("/login");
     }
 </script>
 
 <svelte:head>
-    <script src="https://unpkg.com/flowbite@1.5.1/dist/datepicker.js"></script>
+    <script src="/datepicker.js"></script>
 </svelte:head>
 
-<Navbar />
+<Navbar user={data.user}/>
 
 <slot />
+
+<Footer />

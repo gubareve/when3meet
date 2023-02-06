@@ -1,10 +1,14 @@
 import type {Handle} from "@sveltejs/kit";
-import {pb, user} from "$lib/pb";
+import {pb, pbUrl, user} from "$lib/pb";
+import PocketBase from "pocketbase";
 
 export const handle: Handle = async ({event, resolve}) => {
     // Before
-    pb.authStore.loadFromCookie(event.request.headers.get("cookie") || "");
-    if (pb.authStore.isValid) {
+    event.locals.pb = new PocketBase(pbUrl);
+    event.locals.pb.autoCancellation(false)
+    event.locals.pb.authStore.loadFromCookie(event.request.headers.get("cookie") || "");
+    if (event.locals.pb.authStore.isValid) {
+        event.locals.user = event.locals.pb.authStore.model;
         user.set(structuredClone(pb.authStore.model));
     }
 
