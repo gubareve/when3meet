@@ -2,12 +2,14 @@
 	import { Button, Select } from 'flowbite-svelte';
 	import TimeView from '$lib/components/TimeView.svelte';
 	import dayjs from 'dayjs';
+	import type { PageData } from './$types';
+	import type { Record } from 'pocketbase';
 
-	export let data;
+	export let data: PageData;
 	let organizerPriority = 10;
 	let memberPriority = 5;
 
-	let fitness = [];
+	let fitness: number[][] = [];
 	$: {
 		fitness = [];
 		let total = 0;
@@ -41,7 +43,7 @@
 		}
 	}
 
-	function dateToString(d) {
+	function dateToString(d: Record) {
 		return dayjs(d.day).format('M/D/YYYY');
 	}
 </script>

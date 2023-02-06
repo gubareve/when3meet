@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import "../app.css";
     import { user } from "$lib/pb";
     import { page } from "$app/stores";
@@ -7,8 +7,9 @@
     import { prevPage } from "$lib/login";
     import Navbar from "$lib/components/Navbar.svelte";
     import Footer from "$lib/components/Footer.svelte";
+    import type { PageData } from "./$types";
 
-    export let data;
+    export let data: PageData;
 
     if (
         !data.user &&

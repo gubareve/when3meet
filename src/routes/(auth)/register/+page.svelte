@@ -5,7 +5,7 @@
 	import { A, Button, Checkbox, Helper, Input, Label, Spinner } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
 
-	export let data;
+	export let data: PageData;
 
 	let name: string;
 	let email: string;

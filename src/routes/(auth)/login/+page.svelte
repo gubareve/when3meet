@@ -4,8 +4,9 @@
 	import { prevPage } from '$lib/login';
 	import { Button, Helper, Input, Label, Spinner } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
+	import type { PageData } from './$types';
 
-	export let data;
+	export let data: PageData;;
 
 	let loginForm;
 

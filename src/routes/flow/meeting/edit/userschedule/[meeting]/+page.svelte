@@ -5,8 +5,9 @@
 	import { Button, Heading } from 'flowbite-svelte';
 	import { pb } from '$lib/pb';
 	import { goto } from '$app/navigation';
+	import type { PageData } from './$types';
 
-	export let data;
+	export let data: PageData;
 
 	function dateToString(d) {
 		return dayjs(d.day).format('M/D/YYYY');

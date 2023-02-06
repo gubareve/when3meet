@@ -3,13 +3,14 @@
 
 	import { pb, user } from '$lib/pb';
 	import { goto } from '$app/navigation';
+	import type { PageData } from './$types';
 
 	let title = '';
 	let description = '';
 	let error = {};
 	let loading = false;
 
-	export let data;
+	export let data: PageData;
 
 	async function create() {
 		loading = true;

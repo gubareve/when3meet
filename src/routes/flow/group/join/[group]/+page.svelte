@@ -5,8 +5,9 @@
     import { goto } from "$app/navigation";
     import { prevPage } from "$lib/login";
     import { Spinner } from "flowbite-svelte";
+    import type { PageData } from "./$types";
 
-    export let data;
+    export let data: PageData;
 
     onMount(async () => {
         if (!data.user) {

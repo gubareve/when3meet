@@ -1,14 +1,15 @@
 <script lang="ts">
 	import type { Record } from 'pocketbase';
-	import { pb } from '$lib/pb.ts';
+	import { pb } from '$lib/pb';
 	import Member from '$lib/components/Member.svelte';
 	import { Button, Dropdown, DropdownItem, Heading, Popover, Card } from 'flowbite-svelte';
 	import { user } from '$lib/pb';
 	import { fade } from 'svelte/transition';
 	import { page } from '$app/stores';
 	import { goto, invalidateAll } from '$app/navigation';
+	import type { PageData } from './$types';
 
-	export let data;
+	export let data: PageData;
 
 	const getInitials = (name: string) => {
 		return name
