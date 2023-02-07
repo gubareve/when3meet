@@ -10,7 +10,6 @@
 	export let data: PageData;
 
 	onMount(async () => {
-		console.log(data);
 		let group = await pb.collection('groups').getOne($page.params.group);
 		if (!group.members.includes(data.user!.id)) {
 			group.members.push(data.user!.id);
