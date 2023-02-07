@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '$lib/datepicker.css';
 	import { getHourName } from '$lib/util';
-	import { pb, user } from '$lib/pb';
+	import { pb } from '$lib/pb';
 	import { goto } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { Card, Input } from 'flowbite-svelte';

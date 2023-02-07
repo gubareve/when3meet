@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { pb, user } from '$lib/pb';
+	import { pb } from '$lib/pb';
 	import { goto, invalidateAll } from '$app/navigation';
 	import { prevPage } from '$lib/login';
 	import { A, Button, Checkbox, Helper, Input, Label, Spinner } from 'flowbite-svelte';

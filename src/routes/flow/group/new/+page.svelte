@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { A, Button, Checkbox, Helper, Input, Label, Spinner } from 'flowbite-svelte';
 
-	import { pb, user } from '$lib/pb';
+	import { pb } from '$lib/pb';
 	import { goto } from '$app/navigation';
 	import type { PageData } from './$types';
 

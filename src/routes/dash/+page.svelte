@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { pb, user } from '$lib/pb';
+	import { pb } from '$lib/pb';
 	import { Avatar, Button, Card, Heading, P } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
 	import MemberAvatar from '$lib/components/MemberAvatar.svelte';
