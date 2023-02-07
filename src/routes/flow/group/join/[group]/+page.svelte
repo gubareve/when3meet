@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { pb, user } from '$lib/pb';
+	import { pb } from '$lib/pb';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { goto } from '$app/navigation';
@@ -10,10 +10,7 @@
 	export let data: PageData;
 
 	onMount(async () => {
-		if (!data.user) {
-			prevPage.set($page.url.pathname);
-			await goto('/register');
-		}
+		console.log(data);
 		let group = await pb.collection('groups').getOne($page.params.group);
 		if (!group.members.includes(data.user!.id)) {
 			group.members.push(data.user!.id);
