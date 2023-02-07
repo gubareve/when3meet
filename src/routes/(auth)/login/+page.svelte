@@ -5,17 +5,18 @@
 	import { Button, Helper, Input, Label, Spinner } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
+	import type { ClientResponseError } from 'pocketbase';
 
 	export let data: PageData;
 
-	let loginForm;
+	let loginForm: HTMLFormElement;
 
 	let email: string;
 	let password: string;
 
 	let loading = false;
 
-	let error = null;
+	let error: null | string = null;
 
 	async function login() {
 		if (!loginForm.checkValidity()) {
@@ -26,7 +27,7 @@
 			await pb.collection('users').authWithPassword(email, password);
 			await invalidateAll();
 		} catch (e) {
-			error = e.message;
+			error = (e as ClientResponseError).message;
 			loading = false;
 			return;
 		}

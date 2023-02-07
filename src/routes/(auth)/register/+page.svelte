@@ -4,6 +4,8 @@
 	import { prevPage } from '$lib/login';
 	import { A, Button, Checkbox, Helper, Input, Label, Spinner } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
+	import type { PageData } from './$types';
+	import type { ClientResponseError } from 'pocketbase';
 
 	export let data: PageData;
 
@@ -11,11 +13,11 @@
 	let email: string;
 	let password: string;
 	let avatar: FileList;
-	let registerForm;
+	let registerForm: HTMLFormElement;
 
 	let loading = false;
 
-	let error = {};
+	let error: any = {};
 
 	async function register() {
 		if (registerForm.checkValidity() === false) {
@@ -35,13 +37,7 @@
 		try {
 			await pb.collection('users').create(data);
 		} catch (e) {
-			error = e.data.data;
-			error = {
-				name: error.name ? error.name.message : null,
-				email: error.email ? error.email.message : null,
-				password: error.password ? error.password.message : null,
-				avatar: error.avatar ? error.avatar.message : null
-			};
+			error = (e as ClientResponseError).data.data;
 			loading = false;
 			return;
 		}
@@ -83,7 +79,7 @@
 						<Label for="register-name">Name</Label>
 						<Input bind:value={name} label="Username" id="register-name" placeholder="John Doe" />
 						{#if error.name}
-							<Helper lass="mt-2" color="red">{error.name}</Helper>
+							<Helper lass="mt-2" color="red">{error.name.message}</Helper>
 						{/if}
 					</div>
 					<div>
@@ -94,10 +90,10 @@
 							label="Email"
 							id="register-email"
 							placeholder="john.doe@example.com"
-							error={error.email}
+							error={error.email ? error.email.message : null}
 						/>
 						{#if error.email}
-							<Helper lass="mt-2" color="red">{error.email}</Helper>
+							<Helper lass="mt-2" color="red">{error.email.message}</Helper>
 						{/if}
 					</div>
 					<div>
@@ -108,10 +104,10 @@
 							label="Password"
 							id="register-email"
 							placeholder="Password"
-							error={error.password}
+							error={error.password ? error.password.message : null}
 						/>
 						{#if error.password}
-							<Helper lass="mt-2" color="red">{error.password}</Helper>
+							<Helper lass="mt-2" color="red">{error.password.message}</Helper>
 						{/if}
 					</div>
 					<Checkbox class="mb-6 space-x-1" required

@@ -1,5 +1,6 @@
 import type { PageServerLoad } from './$types';
 import { serializeObj } from '$lib/pb';
+import type { Record } from 'pocketbase';
 
 export const load = (async ({ params, locals }) => {
 	let meeting = await locals.pb.collection('meetings').getOne(params.meeting, {
@@ -14,7 +15,7 @@ export const load = (async ({ params, locals }) => {
 	});
 	return {
 		meeting: serializeObj(meeting),
-		group: serializeObj(meeting.expand.group),
+		group: serializeObj(meeting.expand.group as Record),
 		days: serializeObj(days),
 		schedules: serializeObj(schedules)
 	};

@@ -1,18 +1,18 @@
 <script lang="ts">
-	import { A, Button, Checkbox, Helper, Input, Label, Spinner } from 'flowbite-svelte';
-
+	import { Button, Helper } from 'flowbite-svelte';
 	import { pb } from '$lib/pb';
 	import { goto } from '$app/navigation';
 	import type { PageData } from './$types';
+	import type { ClientResponseError } from 'pocketbase';
 
 	let title = '';
 	let description = '';
-	let error = {};
+	let error: any = {};
 	let loading = false;
 
 	export let data: PageData;
 
-	async function create(e) {
+	async function create(e: Event) {
 		e.preventDefault();
 		loading = true;
 		try {
@@ -25,7 +25,7 @@
 			});
 			await goto('/flow/group/view/' + res.id);
 		} catch (e) {
-			error = e.data.data;
+			error = (e as ClientResponseError).data.data;
 		}
 		loading = false;
 	}

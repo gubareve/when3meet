@@ -3,14 +3,12 @@
 	import { Avatar, Button, Card, Heading, P } from 'flowbite-svelte';
 	import { onMount } from 'svelte';
 	import MemberAvatar from '$lib/components/MemberAvatar.svelte';
-	import type { Record } from 'pocketbase';
 	import { goto, invalidateAll } from '$app/navigation';
+	import type { PageData } from './$types';
 
-	export let data: { groups: Record[] };
+	export let data: PageData;
 
-	let errorMessage = null;
-	let avatarFile;
-	let avatarInput;
+	let avatarInput: HTMLElement;
 
 	function getAvatar() {
 		avatarInput.click();
@@ -18,7 +16,7 @@
 
 	onMount(async () => {
 		// Avatar changed
-		avatarInput.onchange = async (e) => {
+		avatarInput.onchange = async (e: any) => {
 			const formData = new FormData();
 			formData.append('avatar', e.target.files[0]);
 

@@ -3,14 +3,14 @@
 	import { Card } from 'flowbite-svelte';
 	import { getHourName } from '$lib/util';
 
-	export let days;
-	export let dayNames;
-	export let startTime;
-	export let endTime;
+	export let days: number[][];
+	export let dayNames: string[];
+	export let startTime: number;
+	export let endTime: number;
 
-	export let interactive;
+	let interactive: boolean = false;
 
-	export let schedule;
+	let schedule: number[][];
 
 	$: times = Array.from({ length: endTime - startTime + 1 }, (_, i) => i + startTime);
 	$: stringTimes = times.map(getHourName);
@@ -26,12 +26,12 @@
 		return `rgb(${r}, ${g}, ${b})`;
 	}
 
-	let dragStartPos = null;
-	let dragEndPos = null;
+	let dragStartPos: null | [number, number] = null;
+	let dragEndPos: null | [number, number] = null;
 
 	// Set a part of a 2d array to a value
 	// making a rectangle from start to end
-	function setRect(arr, start, end, value) {
+	function setRect(arr: number[][], start: [number, number], end: [number, number], value: number) {
 		for (let i = start[0]; i <= end[0]; i++) {
 			for (let j = start[1]; j <= end[1]; j++) {
 				arr[i][j] = value;
@@ -39,7 +39,7 @@
 		}
 	}
 
-	function dragStart(e) {
+	function dragStart(e: any) {
 		if (interactive) {
 			let day = e.target.dataset.day;
 			let st = e.target.dataset.st;
@@ -49,7 +49,7 @@
 		}
 	}
 
-	function dragEnd(e) {
+	function dragEnd(e: any) {
 		window.removeEventListener('mouseup', dragEnd);
 		if (e.target.dataset.day) {
 			dragEndPos = [e.target.dataset.day, e.target.dataset.st];
@@ -59,12 +59,12 @@
 		}
 	}
 
-	function dragging(e) {
+	function dragging(e: any) {
 		if (interactive && dragStartPos) {
 			if (e.target.dataset.day) {
 				dragEndPos = [e.target.dataset.day, e.target.dataset.st];
 			}
-			setRect(days, dragStartPos, dragEndPos, 1);
+			setRect(days, dragStartPos, dragEndPos!, 1);
 		}
 	}
 </script>

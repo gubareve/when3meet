@@ -1,21 +1,23 @@
-<script>
+<script lang="ts">
 	import { Avatar } from 'flowbite-svelte';
 	import { pb } from '$lib/pb';
+	import type { Record } from 'pocketbase';
 
-	export let member;
+	export let member: Record;
 
-	export let name;
-	export let avatar;
+	export let name: string | null = null;
+	export let avatar: string | null = null;
 
-	export let size = 'md';
+	export let size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' = 'md';
 	export let thumbSize = '128x128';
 	export let stacked = false;
 
 	export let border = false;
 
+	let n: string;
 	$: n = name || member?.name;
 
-	let a;
+	let a: null | string;
 	$: {
 		a = avatar;
 		if (!avatar && member && member.avatar) {

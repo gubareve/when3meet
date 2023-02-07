@@ -2,8 +2,7 @@
 	import { pb } from '$lib/pb';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
-	import { prevPage } from '$lib/login';
+	import { goto, invalidateAll } from '$app/navigation';
 	import { Spinner } from 'flowbite-svelte';
 	import type { PageData } from './$types';
 
@@ -16,6 +15,7 @@
 			await pb.collection('groups').update($page.params.group, {
 				members: group.members
 			});
+			await invalidateAll();
 		}
 
 		await goto('/flow/group/view/' + $page.params.group);

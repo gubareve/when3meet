@@ -9,18 +9,19 @@
 	import { Button, Helper, Label, Select } from 'flowbite-svelte';
 	import { page } from '$app/stores';
 	import dayjs from 'dayjs';
+	import type { SelectOptionType } from 'flowbite-svelte/types';
+	import type { ClientResponseError } from 'pocketbase';
 
 	let title = '';
 	let description = '';
-	let group = '';
 	let start = 1;
 	let end = 23;
 
-	let error = {};
+	let error: any = {};
 	let loading = false;
 	let dates: Date[];
 
-	let days = [];
+	let days: SelectOptionType[] = [];
 	for (let i = 0; i < 24; i++) {
 		days.push({
 			name: getHourName(i),
@@ -50,12 +51,12 @@
 
 			await goto('/flow/meeting/view/' + res.id);
 		} catch (e) {
-			error = e.data.data;
+			error = (e as ClientResponseError).data.data;
 		}
 		loading = false;
 	}
 
-	function dateToString(d) {
+	function dateToString(d: Date) {
 		return dayjs(d).format('dddd, MMMM D');
 	}
 
@@ -64,8 +65,8 @@
 			multiple: true,
 			serialize: dateToString,
 			separator: '; ',
-			onChange(dt: Date[]) {
-				dates = dt;
+			onChange(dt: Date | Date[]) {
+				dates = dt as Date[];
 			}
 		});
 	});

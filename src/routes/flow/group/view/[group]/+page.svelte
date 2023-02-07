@@ -39,7 +39,7 @@
 	}
 
 	async function removeOrganizer(u: string) {
-		data.group.organizers = data.group.organizers.filter((v) => v !== u);
+		data.group.organizers = data.group.organizers.filter((v: string) => v !== u);
 		await pb.collection('groups').update(data.group.id, {
 			organizers: data.group.organizers
 		});
@@ -47,18 +47,23 @@
 	}
 
 	async function removeUser(u: string) {
-		data.group.members = data.group.members.filter((v) => v != u);
-		data.group.expand.members = data.group.expand.members.filter((v) => v.id != u);
+		data.group.members = data.group.members.filter((v: string) => v != u);
+		data.group.expand.members = data.group.expand.members.filter((v: Record) => v.id != u);
 		let update = {
 			members: data.group.members,
 			organizers: undefined
 		};
 		if (data.group.organizers.includes(u)) {
-			data.group.organizers = data.group.organizers.filter((v) => v != u);
+			data.group.organizers = data.group.organizers.filter((v: string) => v != u);
 			update.organizers = data.group.organizers;
 		}
 		await pb.collection('groups').update(data.group.id, update);
 		await invalidateAll();
+	}
+
+	// TS workaround
+	function assertRecordArr(v: Record | Record[]): Record[] {
+		return v as Record[];
 	}
 </script>
 
@@ -72,7 +77,7 @@
 			<Heading tag="h1" class="!text-4xl md:!text-5xl">{data.group.title}</Heading>
 		</div>
 		<div class="flex items-center justify-center">
-			{#if data.group.author === data.user.id || data.group.organizers.includes(data.user.id)}
+			{#if data.group.author === data.user?.id || data.group.organizers.includes(data.user?.id)}
 				<Button
 					color="primary"
 					class="mr-2"
@@ -398,7 +403,7 @@
 					/></svg
 				>
 			</div>
-			{#if data.group.author === data.user.id || data.group.organizers.includes(data.user.id)}
+			{#if data.group.author === data.user?.id || data.group.organizers.includes(data.user?.id)}
 				<div>
 					<Button
 						color="primary"
@@ -434,7 +439,7 @@
 
 	<Heading tag="h2" class="py-2 !text-3xl !md:text-4xl">Members</Heading>
 	<div class="grid grid-cols-auto-fill gap-2 max-w-full">
-		{#each data.group.expand.members as m (m.id)}
+		{#each assertRecordArr(data.group.expand.members) as m (m.id)}
 			<Member
 				member={m}
 				organizer={data.group.organizers.includes(m.id)}

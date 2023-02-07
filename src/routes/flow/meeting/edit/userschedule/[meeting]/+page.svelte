@@ -3,7 +3,7 @@
 	import TimeViewInteractive from '$lib/components/TimeViewInteractive.svelte';
 	import { Button, Heading } from 'flowbite-svelte';
 	import { pb } from '$lib/pb';
-	import { goto } from '$app/navigation';
+	import { goto, invalidateAll } from '$app/navigation';
 	import type { PageData } from './$types';
 	import type { Record } from 'pocketbase';
 
@@ -38,7 +38,7 @@
 			} else {
 				promises.push(
 					pb.collection('schedules').create({
-						author: data.user.id,
+						author: data.user!.id,
 						day: data.days[i].id,
 						available: vals
 					})
@@ -46,6 +46,7 @@
 			}
 		}
 		await Promise.all(promises);
+		await invalidateAll();
 		loading = false;
 		await goto('/flow/meeting/view/' + data.meeting.id);
 	}
