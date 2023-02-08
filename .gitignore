@@ -4,6 +4,7 @@ node_modules
 /.svelte-kit
 /.idea
 /package
+when3meet.iml
 .env
 .env.*
 /pb/pb_data/**
