@@ -19,6 +19,8 @@
 
 	let error: any = {};
 
+	let red = $prevPage;
+
 	async function register() {
 		if (registerForm.checkValidity() === false) {
 			return;
@@ -45,18 +47,18 @@
 		await pb.collection('users').authWithPassword(email, password);
 		await invalidateAll();
 
-		await goto($prevPage == '' ? '/dash' : $prevPage);
+		$prevPage = null;
+
+		console.log(red);
+
+		await goto(red == '' ? '/dash' : red, { replaceState: true });
 	}
 
 	onMount(() => {
 		if (data.user) {
-			goto('/dash?error=alreadyLoggedIn');
+			goto('/dash?error=alreadyLoggedIn', { replaceState: true });
 		}
 	});
-
-	function logout() {
-		pb.authStore.clear();
-	}
 </script>
 
 <svelte:head>

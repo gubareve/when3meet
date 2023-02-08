@@ -6,6 +6,7 @@
 	import { onMount } from 'svelte';
 	import type { PageData } from './$types';
 	import type { ClientResponseError } from 'pocketbase';
+	import { page } from '$app/stores';
 
 	export let data: PageData;
 
@@ -17,6 +18,8 @@
 	let loading = false;
 
 	let error: null | string = null;
+
+	let red = '/dash';
 
 	async function login() {
 		if (!loginForm.checkValidity()) {
@@ -31,14 +34,26 @@
 			loading = false;
 			return;
 		}
-		let prev = $prevPage;
-		prevPage.set('');
-		await goto(prev == '' ? '/dash' : prev);
+		$prevPage.set('');
+		await goto(red, { replaceState: true });
 	}
 
+	const urlMatcher = new RegExp('/[A-z0-9/]*');
+
 	onMount(() => {
+		if (
+			$page.url.searchParams.get('red') &&
+			urlMatcher.test($page.url.searchParams.get('red')) &&
+			$page.url.searchParams.get('red') !== '/login'
+		) {
+			red = $page.url.searchParams.get('red')!;
+			prevPage.set(red);
+		} else if ($prevPage) {
+			red = $prevPage;
+		}
+
 		if (data.user) {
-			goto('/dash?error=alreadyLoggedIn');
+			goto('/dash?error=alreadyLoggedIn', { replaceState: true });
 		}
 	});
 </script>
